@@ -8,4 +8,6 @@
 
 ## GitHub Pages
 
-저장소 Settings → Pages → Source를 `main` 브랜치로 설정하면 배포할 수 있습니다.
+https://lenenchain.github.io/daegu-matjip/
+
+저장소 Settings → Pages → Source를 `Deploy from a branch` → `main` → `/ (root)`로 설정하면 배포됩니다.
