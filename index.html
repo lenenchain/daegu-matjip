@@ -455,37 +455,60 @@
     .card:nth-child(8) { animation-delay: 0.4s; }
 
     /* ── Chatbot ── */
-    .chat-fab {
+    .chat-widget {
       position: fixed;
       bottom: 24px;
       right: 24px;
-      z-index: 200;
-      width: 58px;
-      height: 58px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+    }
+
+    .chat-fab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 22px;
       border: none;
-      border-radius: 50%;
+      border-radius: 50px;
       background: var(--daegu-red);
       color: #fff;
-      font-size: 1.5rem;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 700;
       cursor: pointer;
       box-shadow: 0 8px 28px rgba(194, 59, 59, 0.45);
-      transition: transform 0.2s, box-shadow 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      animation: chatPulse 2.5s ease-in-out infinite;
     }
+
+    .chat-fab-icon { font-size: 1.2rem; line-height: 1; }
 
     .chat-fab:hover {
-      transform: scale(1.06);
+      transform: translateY(-2px);
       box-shadow: 0 12px 36px rgba(194, 59, 59, 0.55);
+      animation: none;
     }
 
-    .chat-fab.open { background: var(--daegu-deep); }
+    .chat-fab.open {
+      background: var(--daegu-deep);
+      padding: 14px 18px;
+      animation: none;
+    }
+
+    .chat-fab.open .chat-fab-label { display: none; }
+
+    @keyframes chatPulse {
+      0%, 100% { box-shadow: 0 8px 28px rgba(194, 59, 59, 0.45); }
+      50% { box-shadow: 0 8px 32px rgba(194, 59, 59, 0.65), 0 0 0 8px rgba(194, 59, 59, 0.12); }
+    }
 
     .chat-panel {
-      position: fixed;
-      bottom: 96px;
-      right: 24px;
-      z-index: 200;
+      position: relative;
       width: 360px;
-      max-width: calc(100vw - 32px);
+      max-width: calc(100vw - 48px);
       height: 520px;
       max-height: calc(100vh - 120px);
       background: #fff;
@@ -659,13 +682,15 @@
       .restaurants { grid-template-columns: 1fr; }
       .district-map { grid-template-columns: repeat(2, 1fr); }
       .hero-stats { gap: 28px; }
-      .chat-panel {
+      .chat-widget {
         right: 16px;
-        bottom: 88px;
+        bottom: 16px;
+      }
+      .chat-panel {
         width: calc(100vw - 32px);
         height: 60vh;
       }
-      .chat-fab { right: 16px; bottom: 16px; }
+      .chat-fab { font-size: 0.85rem; padding: 12px 18px; }
     }
   </style>
 </head>
@@ -1023,18 +1048,22 @@
     <p style="margin-top:8px">© 2026 Daegu Eats. 맛집 정보는 변경될 수 있으니 방문 전 확인해 주세요.</p>
   </footer>
 
-  <button class="chat-fab" id="chatFab" aria-label="맛집 챗봇 열기">🍽️</button>
-
-  <div class="chat-panel" id="chatPanel" role="dialog" aria-label="대구 맛집 챗봇">
-    <div class="chat-header">
-      <h3>대구 맛집 가이드 봇</h3>
-      <p>구·군별 맛집 정보를 물어보세요</p>
+  <div class="chat-widget" id="chatWidget">
+    <div class="chat-panel" id="chatPanel" role="dialog" aria-label="대구 맛집 챗봇">
+      <div class="chat-header">
+        <h3>대구 맛집 가이드 봇</h3>
+        <p>구·군별 맛집 정보를 물어보세요</p>
+      </div>
+      <div class="chat-messages" id="chatMessages"></div>
+      <div class="chat-input-area">
+        <input type="text" id="chatInput" placeholder="예) 남구 맛집 추천해줘" autocomplete="off">
+        <button class="chat-send" id="chatSend" aria-label="전송">➤</button>
+      </div>
     </div>
-    <div class="chat-messages" id="chatMessages"></div>
-    <div class="chat-input-area">
-      <input type="text" id="chatInput" placeholder="예) 남구 맛집 추천해줘" autocomplete="off">
-      <button class="chat-send" id="chatSend" aria-label="전송">➤</button>
-    </div>
+    <button class="chat-fab" id="chatFab" aria-label="맛집 챗봇 열기">
+      <span class="chat-fab-icon">💬</span>
+      <span class="chat-fab-label">맛집 챗봇</span>
+    </button>
   </div>
 
   <script>
@@ -1357,7 +1386,7 @@
       const isOpen = open ?? !chatPanel.classList.contains('open');
       chatPanel.classList.toggle('open', isOpen);
       chatFab.classList.toggle('open', isOpen);
-      chatFab.textContent = isOpen ? '✕' : '🍽️';
+      chatFab.querySelector('.chat-fab-icon').textContent = isOpen ? '✕' : '💬';
       if (isOpen) {
         initChat();
         chatInput.focus();
