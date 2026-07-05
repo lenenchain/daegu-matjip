@@ -454,12 +454,218 @@
     .card:nth-child(7) { animation-delay: 0.35s; }
     .card:nth-child(8) { animation-delay: 0.4s; }
 
+    /* ── Chatbot ── */
+    .chat-fab {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 200;
+      width: 58px;
+      height: 58px;
+      border: none;
+      border-radius: 50%;
+      background: var(--daegu-red);
+      color: #fff;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 8px 28px rgba(194, 59, 59, 0.45);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .chat-fab:hover {
+      transform: scale(1.06);
+      box-shadow: 0 12px 36px rgba(194, 59, 59, 0.55);
+    }
+
+    .chat-fab.open { background: var(--daegu-deep); }
+
+    .chat-panel {
+      position: fixed;
+      bottom: 96px;
+      right: 24px;
+      z-index: 200;
+      width: 360px;
+      max-width: calc(100vw - 32px);
+      height: 520px;
+      max-height: calc(100vh - 120px);
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(26, 20, 16, 0.2);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(16px) scale(0.96);
+      transition: all 0.25s cubic-bezier(0.34, 1.2, 0.64, 1);
+    }
+
+    .chat-panel.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    .chat-header {
+      background: linear-gradient(135deg, var(--daegu-red), #a02e2e);
+      color: #fff;
+      padding: 18px 20px;
+      flex-shrink: 0;
+    }
+
+    .chat-header h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 2px;
+    }
+
+    .chat-header p {
+      font-size: 0.75rem;
+      opacity: 0.85;
+    }
+
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: var(--daegu-cream);
+    }
+
+    .chat-msg {
+      max-width: 88%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 0.84rem;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      word-break: keep-all;
+    }
+
+    .chat-msg.bot {
+      align-self: flex-start;
+      background: #fff;
+      color: var(--text);
+      border-bottom-left-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .chat-msg.user {
+      align-self: flex-end;
+      background: var(--daegu-red);
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+
+    .chat-msg a {
+      color: var(--daegu-red);
+      font-weight: 600;
+      text-decoration: underline;
+    }
+
+    .chat-msg.user a { color: #fff; }
+
+    .chat-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .chat-chip {
+      border: 1px solid var(--daegu-warm);
+      background: #fff;
+      color: var(--text-muted);
+      font-family: inherit;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .chat-chip:hover {
+      border-color: var(--daegu-red);
+      color: var(--daegu-red);
+    }
+
+    .chat-input-area {
+      display: flex;
+      gap: 8px;
+      padding: 12px 14px;
+      border-top: 1px solid var(--daegu-warm);
+      background: #fff;
+      flex-shrink: 0;
+    }
+
+    .chat-input-area input {
+      flex: 1;
+      border: 2px solid var(--daegu-warm);
+      border-radius: 24px;
+      padding: 10px 16px;
+      font-family: inherit;
+      font-size: 0.85rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .chat-input-area input:focus {
+      border-color: var(--daegu-red);
+    }
+
+    .chat-send {
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 50%;
+      background: var(--daegu-red);
+      color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .chat-send:hover { background: #a02e2e; }
+
+    .chat-typing {
+      align-self: flex-start;
+      padding: 10px 14px;
+      background: #fff;
+      border-radius: 16px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    }
+
+    .chat-typing span {
+      animation: blink 1.2s infinite;
+    }
+
+    .chat-typing span:nth-child(2) { animation-delay: 0.2s; }
+    .chat-typing span:nth-child(3) { animation-delay: 0.4s; }
+
+    @keyframes blink {
+      0%, 60%, 100% { opacity: 0.3; }
+      30% { opacity: 1; }
+    }
+
     /* ── Responsive ── */
     @media (max-width: 768px) {
       nav { display: none; }
       .restaurants { grid-template-columns: 1fr; }
       .district-map { grid-template-columns: repeat(2, 1fr); }
       .hero-stats { gap: 28px; }
+      .chat-panel {
+        right: 16px;
+        bottom: 88px;
+        width: calc(100vw - 32px);
+        height: 60vh;
+      }
+      .chat-fab { right: 16px; bottom: 16px; }
     }
   </style>
 </head>
@@ -817,6 +1023,20 @@
     <p style="margin-top:8px">© 2026 Daegu Eats. 맛집 정보는 변경될 수 있으니 방문 전 확인해 주세요.</p>
   </footer>
 
+  <button class="chat-fab" id="chatFab" aria-label="맛집 챗봇 열기">🍽️</button>
+
+  <div class="chat-panel" id="chatPanel" role="dialog" aria-label="대구 맛집 챗봇">
+    <div class="chat-header">
+      <h3>대구 맛집 가이드 봇</h3>
+      <p>구·군별 맛집 정보를 물어보세요</p>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="chat-input-area">
+      <input type="text" id="chatInput" placeholder="예) 남구 맛집 추천해줘" autocomplete="off">
+      <button class="chat-send" id="chatSend" aria-label="전송">➤</button>
+    </div>
+  </div>
+
   <script>
     const header = document.getElementById('header');
     const filterBtns = document.querySelectorAll('.filter-btn');
@@ -879,6 +1099,278 @@
     }, { threshold: 0.5, rootMargin: '-80px 0px' });
 
     cards.forEach(card => observer.observe(card));
+
+    /* ── Chatbot ── */
+    const RESTAURANTS = [
+      { id: 'jung', district: '중구', name: '낙영찜갈비', menu: '찜갈비, 갈빗살찌개', specialty: '찜갈비', address: '대구광역시 중구 동덕로36길 9-17', hours: '10:00 – 21:00 (명절 휴무)', phone: '053-423-3330', tags: ['동인동', '주차 가능', '전화 예약'] },
+      { id: 'dong', district: '동구', name: '황토시골집', menu: '삼계탕, 백숙, 닭볶음탕', specialty: '삼계탕·백숙', address: '대구광역시 동구 팔공로49길 16', hours: '10:00 – 21:00', phone: '053-982-5599', tags: ['팔공산', '가족 외식', '건강식'] },
+      { id: 'seo', district: '서구', name: '구공탄막창 본점', menu: '막창, 삼겹살, 버섯된장찌개', specialty: '막창', address: '대구광역시 서구 국채보상로 308', hours: '17:00 – 24:00 (연중무휴)', phone: '053-573-9282', tags: ['막창', '주차 가능', '야식'] },
+      { id: 'nam', district: '남구', name: '산더미 미성돼지국밥 안지랑점', menu: '돼지국밥, 순대국밥, 내장탕', specialty: '돼지국밥', address: '대구광역시 남구 대명로 129-2 1층', hours: '08:00 – 21:00', phone: '053-623-7788', tags: ['안지랑', '리필 가능', '가성비'] },
+      { id: 'buk', district: '북구', name: '칠성동할매콩국수', menu: '콩국수, 볶음콩국수, 육전칼국수', specialty: '콩국수', address: '대구광역시 북구 칠성남로 118', hours: '10:30 – 20:30 (월요일 휴무)', phone: '053-356-3939', tags: ['칠성시장', '주차 가능', '여름 별미'] },
+      { id: 'suseong', district: '수성구', name: '우야지막창 지산점', menu: '우야지 막창, 양념막창, 된장라면', specialty: '막창', address: '대구광역시 수성구 지범로29길 7', hours: '16:00 – 23:30', phone: '053-767-9292', tags: ['범물역', '회식', '숯불 구이'] },
+      { id: 'dalseo', district: '달서구', name: '버들식당', menu: '환상의 맛 전골, 곱창전골', specialty: '전골', address: '대구광역시 달서구 두류공원로28길 8', hours: '11:30 – 21:00 (명절 휴무)', phone: '053-623-7890', tags: ['두류공원', '노포', '단체 식사'] },
+      { id: 'dalseong', district: '달성군', name: '원조현풍박소선할매집곰탕', menu: '곰탕, 곰국, 수육', specialty: '곰탕', address: '대구광역시 달성군 현풍읍 현풍중앙로 95', hours: '09:00 – 21:00', phone: '053-642-3567', tags: ['현풍', '주차 가능', '향토 명물'] }
+    ];
+
+    const DISTRICT_ALIASES = {
+      '중구': 'jung', '동구': 'dong', '서구': 'seo', '남구': 'nam',
+      '북구': 'buk', '수성구': 'suseong', '달서구': 'dalseo', '달성군': 'dalseong', '달성': 'dalseong'
+    };
+
+    const FOOD_KEYWORDS = {
+      '찜갈비': ['찜갈비', '갈비'],
+      '막창': ['막창', '곱창'],
+      '돼지국밥': ['돼지국밥', '국밥', '순대'],
+      '콩국수': ['콩국수', '콩국'],
+      '삼계탕': ['삼계탕', '백숙', '닭'],
+      '전골': ['전골'],
+      '곰탕': ['곰탕', '곰국']
+    };
+
+    const chatFab = document.getElementById('chatFab');
+    const chatPanel = document.getElementById('chatPanel');
+    const chatMessages = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const chatSend = document.getElementById('chatSend');
+
+    let chatInitialized = false;
+
+    function formatRestaurant(r) {
+      return `🍴 <strong>${r.name}</strong> (${r.district})\n` +
+        `메뉴: ${r.menu}\n` +
+        `📍 ${r.address}\n` +
+        `🕐 ${r.hours}\n` +
+        `📞 ${r.phone}\n` +
+        `<a href="#${r.id}">맛집 카드 보기 →</a>`;
+    }
+
+    function addMessage(text, role, chips = []) {
+      const msg = document.createElement('div');
+      msg.className = `chat-msg ${role}`;
+      msg.innerHTML = text;
+
+      if (chips.length) {
+        const chipWrap = document.createElement('div');
+        chipWrap.className = 'chat-chips';
+        chips.forEach(label => {
+          const chip = document.createElement('button');
+          chip.className = 'chat-chip';
+          chip.type = 'button';
+          chip.textContent = label;
+          chip.addEventListener('click', () => handleUserMessage(label));
+          chipWrap.appendChild(chip);
+        });
+        msg.appendChild(chipWrap);
+      }
+
+      chatMessages.appendChild(msg);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function showTyping() {
+      const el = document.createElement('div');
+      el.className = 'chat-typing';
+      el.id = 'chatTyping';
+      el.innerHTML = '답변 작성 중<span>.</span><span>.</span><span>.</span>';
+      chatMessages.appendChild(el);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    function hideTyping() {
+      document.getElementById('chatTyping')?.remove();
+    }
+
+    function findByDistrict(text) {
+      for (const [name, id] of Object.entries(DISTRICT_ALIASES)) {
+        if (text.includes(name)) return RESTAURANTS.find(r => r.id === id);
+      }
+      return null;
+    }
+
+    function findByFood(text) {
+      for (const [food, keywords] of Object.entries(FOOD_KEYWORDS)) {
+        if (keywords.some(k => text.includes(k))) {
+          return RESTAURANTS.filter(r =>
+            r.menu.includes(food) || r.specialty.includes(food) ||
+            keywords.some(k => r.menu.includes(k) || r.specialty.includes(k) || r.name.includes(k))
+          );
+        }
+      }
+      return [];
+    }
+
+    function findByName(text) {
+      return RESTAURANTS.find(r => text.includes(r.name) || r.name.replace(/\s/g, '').includes(text.replace(/\s/g, '')));
+    }
+
+    function generateReply(input) {
+      const text = input.trim().toLowerCase();
+      const raw = input.trim();
+
+      if (!text) return { text: '궁금한 맛집을 입력해 주세요!', chips: ['전체 맛집', '막창 추천', '남구 맛집'] };
+
+      if (/안녕|하이|hello|반가/.test(text)) {
+        return {
+          text: '안녕하세요! 대구 맛집 가이드 봇입니다 😊\n구·군별 맛집, 메뉴, 영업시간, 주소를 알려드릴게요.',
+          chips: ['전체 맛집 보기', '막창 어디가 좋아?', '회식 장소 추천']
+        };
+      }
+
+      if (/도움|help|뭐.*물어|어떤.*질문|기능/.test(text)) {
+        return {
+          text: '이렇게 물어보실 수 있어요:\n• "남구 맛집 추천해줘"\n• "막창 맛집 어디야?"\n• "낙영찜갈비 영업시간"\n• "돼지국밥 주소 알려줘"\n• "회식하기 좋은 곳"',
+          chips: ['전체 맛집', '막창 추천', '돼지국밥']
+        };
+      }
+
+      if (/전체|모든|다 보|목록|리스트|8개|몇/.test(text)) {
+        const list = RESTAURANTS.map(r => `• ${r.district} — ${r.name} (${r.specialty})`).join('\n');
+        return {
+          text: `대구 8개 구·군 엄선 맛집입니다:\n\n${list}`,
+          chips: ['막창 맛집', '가성비 맛집', '노포 추천']
+        };
+      }
+
+      if (/추천|어디|맛집|식당|먹/.test(text)) {
+        if (/회식|단체|모임/.test(text)) {
+          const r = RESTAURANTS.find(x => x.id === 'suseong');
+          return { text: `회식 추천!\n\n${formatRestaurant(r)}`, chips: ['막창 맛집', '전골 맛집'] };
+        }
+        if (/가족|아이|건강/.test(text)) {
+          const r = RESTAURANTS.find(x => x.id === 'dong');
+          return { text: `가족 외식 추천!\n\n${formatRestaurant(r)}`, chips: ['전체 맛집', '콩국수'] };
+        }
+        if (/야식|밤|늦게|저녁/.test(text)) {
+          const r = RESTAURANTS.find(x => x.id === 'seo');
+          return { text: `야식·늦은 저녁 추천!\n\n${formatRestaurant(r)}`, chips: ['막창 맛집', '수성구 맛집'] };
+        }
+        if (/가성비|저렴|든든|리필/.test(text)) {
+          const r = RESTAURANTS.find(x => x.id === 'nam');
+          return { text: `가성비 맛집 추천!\n\n${formatRestaurant(r)}`, chips: ['돼지국밥', '전체 맛집'] };
+        }
+        if (/여름|시원|콩/.test(text)) {
+          const r = RESTAURANTS.find(x => x.id === 'buk');
+          return { text: `여름 별미 추천!\n\n${formatRestaurant(r)}`, chips: ['전체 맛집', '막창'] };
+        }
+        if (/노포|오래|전통|역사/.test(text)) {
+          const r = RESTAURANTS.find(x => x.id === 'dalseo');
+          return { text: `대구 노포 맛집 추천!\n\n${formatRestaurant(r)}`, chips: ['찜갈비', '곰탕'] };
+        }
+      }
+
+      const named = findByName(raw);
+      if (named) {
+        if (/영업|시간|몇시|휴무|열/.test(text)) {
+          return { text: `${named.name} 영업시간\n🕐 ${named.hours}`, chips: [`${named.district} 맛집`, '전화번호'] };
+        }
+        if (/주소|위치|어디|길/.test(text)) {
+          return { text: `${named.name} 주소\n📍 ${named.address}`, chips: ['구글맵', `${named.district} 맛집`] };
+        }
+        if (/전화|번호|연락/.test(text)) {
+          return { text: `${named.name} 전화번호\n📞 ${named.phone}`, chips: ['영업시간', '주소'] };
+        }
+        return { text: formatRestaurant(named), chips: ['전체 맛집', '막창 추천'] };
+      }
+
+      const district = findByDistrict(raw);
+      if (district && /추천|맛집|어디|식당|알려|정보/.test(text)) {
+        return { text: `${district.district} 추천 맛집\n\n${formatRestaurant(district)}`, chips: ['전체 맛집', '막창'] };
+      }
+
+      if (/영업|시간|몇시|휴무/.test(text)) {
+        const d = findByDistrict(raw);
+        if (d) return { text: `${d.name} 영업시간\n🕐 ${d.hours}`, chips: ['주소', '전화번호'] };
+      }
+
+      if (/주소|위치|길/.test(text)) {
+        const d = findByDistrict(raw) || findByFood(raw)[0];
+        if (d) return { text: `${d.name} 주소\n📍 ${d.address}`, chips: ['영업시간', '맛집 카드 보기'] };
+      }
+
+      if (/전화|번호/.test(text)) {
+        const d = findByDistrict(raw) || findByFood(raw)[0];
+        if (d) return { text: `${d.name} 전화번호\n📞 ${d.phone}`, chips: ['영업시간', '주소'] };
+      }
+
+      const foodMatches = findByFood(raw);
+      if (foodMatches.length) {
+        if (foodMatches.length === 1) {
+          return { text: `${foodMatches[0].specialty} 맛집\n\n${formatRestaurant(foodMatches[0])}`, chips: ['전체 맛집', '다른 음식'] };
+        }
+        const list = foodMatches.map(r => `• ${r.district} — ${r.name}`).join('\n');
+        return { text: `막창 맛집 ${foodMatches.length}곳을 찾았어요:\n\n${list}`, chips: foodMatches.map(r => r.name) };
+      }
+
+      const districtOnly = findByDistrict(raw);
+      if (districtOnly) {
+        return { text: `${districtOnly.district} 맛집\n\n${formatRestaurant(districtOnly)}`, chips: ['전체 맛집', '막창'] };
+      }
+
+      if (/대구|맛|음식|특산|유명/.test(text)) {
+        return {
+          text: '대구를 대표하는 음식은 찜갈비, 막창, 돼지국밥, 콩국수, 곰탕, 전골 등이에요!\n어느 음식이 궁금하신가요?',
+          chips: ['찜갈비', '막창', '돼지국밥', '곰탕']
+        };
+      }
+
+      return {
+        text: '죄송해요, 잘 이해하지 못했어요.\n구·군 이름이나 음식 종류로 다시 물어봐 주세요!',
+        chips: ['전체 맛집', '남구 맛집', '막창 추천', '도움말']
+      };
+    }
+
+    function handleUserMessage(text) {
+      addMessage(text, 'user');
+      chatInput.value = '';
+      showTyping();
+
+      setTimeout(() => {
+        hideTyping();
+        const reply = generateReply(text);
+        addMessage(reply.text, 'bot', reply.chips || []);
+
+        if (reply.text.includes('맛집 카드 보기')) {
+          chatMessages.querySelectorAll('.chat-msg.bot a[href^="#"]').forEach(link => {
+            link.addEventListener('click', (e) => {
+              e.preventDefault();
+              const id = link.getAttribute('href').slice(1);
+              filterDistrict(id);
+              const target = document.getElementById(id);
+              if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+          });
+        }
+      }, 400 + Math.random() * 300);
+    }
+
+    function initChat() {
+      if (chatInitialized) return;
+      chatInitialized = true;
+      addMessage(
+        '안녕하세요! 대구 맛집 가이드 봇이에요 🍽️\n8개 구·군 맛집 정보를 알려드립니다.',
+        'bot',
+        ['전체 맛집 보기', '막창 추천', '남구 맛집', '회식 장소']
+      );
+    }
+
+    function toggleChat(open) {
+      const isOpen = open ?? !chatPanel.classList.contains('open');
+      chatPanel.classList.toggle('open', isOpen);
+      chatFab.classList.toggle('open', isOpen);
+      chatFab.textContent = isOpen ? '✕' : '🍽️';
+      if (isOpen) {
+        initChat();
+        chatInput.focus();
+      }
+    }
+
+    chatFab.addEventListener('click', () => toggleChat());
+    chatSend.addEventListener('click', () => {
+      if (chatInput.value.trim()) handleUserMessage(chatInput.value.trim());
+    });
+    chatInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && chatInput.value.trim()) handleUserMessage(chatInput.value.trim());
+    });
   </script>
 </body>
 </html>
